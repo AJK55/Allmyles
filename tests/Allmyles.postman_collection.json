@@ -8,7 +8,240 @@
 	"item": [
 		{
 			"name": "Hotels",
-			"item": [],
+			"item": [
+				{
+					"name": "Search Hotels",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43a3f232-668c-45f9-8019-a40a62c5774b",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									"pass = true;",
+									"fail = false;",
+									"",
+									"//console.log(data.hotelResultSet[0].max_rate);",
+									"//console.log(data.hotelResultSet[0].chain_name);",
+									"var data = JSON.parse(responseBody);",
+									"var dataHRS =  data.hotelResultSet[0];",
+									"var a = dataHRS.chain_name;",
+									"var b = dataHRS.distance;",
+									"var c = dataHRS.hotel_id;",
+									"var d = dataHRS.hotel_name;",
+									"var e = dataHRS.latitude;",
+									"var f = dataHRS.longitude;",
+									"var g = dataHRS.max_rate.amount;",
+									"var h = dataHRS.max_rate.currency;",
+									"var i = dataHRS.min_rate.amount;",
+									"var j = dataHRS.min_rate.currency;",
+									"var k = dataHRS.stars;",
+									"var l = dataHRS.thumbnail;",
+									"//console.log(dataHRS);",
+									"//console.log(l);",
+									"",
+									"tests[\"Hotel Chain Name (Test 1) = \" + a] = a === \"ACCOR HOTELS\";",
+									"",
+									"if (a ===  \"ACCOR HOTELS\") {",
+									"    tests[\"Hotel Chain Name = \" + a] = pass;",
+									"} ",
+									"else",
+									"tests[\"Hotel Chain Name = \" + a] = fail;",
+									"",
+									"if (b === 1.425) {",
+									"    tests[\"Distance = \" + b] = pass;",
+									"}",
+									"else",
+									"tests[\"Distance = \" + b] = fail;",
+									"",
+									"if (c === \"12_2\") {",
+									"    tests[\"Hotel_Id = \" + c] = pass;",
+									"}",
+									"else",
+									"tests[\"Hotel_Id = \" + c] = fail;",
+									"",
+									"if (d === \"MERCURE PARIS PLACE ITALIE 3*\") {",
+									"    tests[\"hotel_name = \" + d] = pass;",
+									"}",
+									"else",
+									"tests[\"hotel_name = \" + d] = false;",
+									"",
+									"if (e === 48.8303) {",
+									"    tests[\"latitude = \" + e] = pass;",
+									"}",
+									"else",
+									"tests[\"latitude = \" + e] = false;",
+									"",
+									"if (f === 2.35283) {",
+									"    tests[\"latitude = \" + f] = pass;",
+									"}",
+									"else",
+									"tests[\"latitude = \" + f] = false;",
+									"",
+									"if (g === 21951.12 && h === \"HUF\") {",
+									"    tests[\"Max_Rate = \" + g + \" \" + h] = pass;",
+									"}",
+									"else",
+									"    tests[\"Max_Rate = \" + g + \" \" + h] = fail;",
+									"",
+									"if (i === 18024.3 && j === \"HUF\") {",
+									"    tests[\"Min_Rate = \" + i + \" \" + j] = pass;",
+									"}",
+									"else",
+									"    tests[\"Min_Rate = \" + i + \" \" + j] = fail;",
+									"    ",
+									"if (k === 3) {",
+									"    tests[\"Stars = \" + k] = pass;",
+									"}",
+									"else",
+									"    tests[\"Stars = \" + k] = fail;",
+									"    ",
+									"if (l === \"https://static.allmyles.com/hotels/e4ba87c0/12_2.jpg\") {",
+									"    tests[\"Thumbnail = \" + l] = pass;",
+									"    }",
+									"else",
+									"    tests[\"Thumbnail =\"  + l] = fail;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n      \"cityCode\": \"LON\",\r\n      \"rooms\": [{\"ADT\": 1, \"CHD\": 1}, {\"ADT\": 1}],\r\n      \"arrivalDate\": \"2014-09-29\",\r\n      \"leaveDate\": \"2014-09-30\",\r\n      \"nationality\": \"HU\"\r\n    }"
+						},
+						"url": {
+							"raw": "https://private-anon-8356d23813-allmyles.apiary-mock.com/hotels",
+							"protocol": "https",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"hotels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hotel Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6387261b-4a23-4e9f-b64c-3ba4500fdf63",
+								"type": "text/javascript",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var dataHD = data.hotel_details",
+									"var dataHDA = dataHD.amenities;",
+									"var amenitiesCount = Object.keys(dataHDA).length;",
+									"var a = [dataHDA.air_conditioning",
+									",dataHDA.bar",
+									",dataHDA.business_center\t",
+									",dataHDA.gym\t",
+									",dataHDA.internet\t",
+									",dataHDA.laundry\t",
+									",dataHDA.meeting_rooms\t",
+									",dataHDA.parking\t",
+									",dataHDA.restaurant\t",
+									",dataHDA.room_service\t",
+									",dataHDA.safe_deposit_box\t",
+									",dataHDA.spa\t",
+									",dataHDA.swimming]",
+									"var b = (a.filter(true).length);",
+									"var c = (a.filter(false).length);",
+									"var d = dataHD.photos;",
+									"",
+									"if (amenitiesCount === 13) {",
+									"    tests[\"Number of Amenities = \" + amenitiesCount] = pass;",
+									"}",
+									"else if (amenitiesCount > 13) {",
+									"    tests[\"Number of Amenities > \" + amenitiesCount] = fail;",
+									"}",
+									"else if (amenitiesCount < 13) {",
+									"    tests[\"Number of Amenities < \" + amenitiesCount] = fail;",
+									"}",
+									"else",
+									"    tests[\"Number of Amenities <>  \" + amenitiesCount] = fail;",
+									"",
+									"if (b === 6) {",
+									"    tests[\"Number of True Amenities = \" + 6] = pass;",
+									"}",
+									"else",
+									"    tests[\"Number of True Amenities = \" + 6] = fail;",
+									"",
+									"if (c === 7) {",
+									"    tests[\"Number of False Amenities = \" + 7] = pass;",
+									"}",
+									"else",
+									"    tests[\"Number of False Amenities = \" + 7] = fail;",
+									"",
+									"if (amenitiesCount === 13 && b === 6 && c === 7) {",
+									"tests[\"Amenities Count\"] = pass;",
+									"}",
+									"else",
+									"tests[\"Amenities Count\"] = fail;",
+									"",
+									"if (d.length === 8) {",
+									"    tests[\"Number of photos = \" + d.length] = pass;",
+									"}",
+									"else",
+									"    tests[\"Number of photos = \" + d.length] = fail;",
+									"",
+									"",
+									"",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    ",
+									"    "
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://private-anon-8356d23813-allmyles.apiary-mock.com/hotels/hotel_id",
+							"protocol": "https",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"hotels",
+								"hotel_id"
+							]
+						}
+					},
+					"response": []
+				}
+			],
 			"event": [
 				{
 					"listen": "prerequest",
@@ -34,134 +267,6 @@
 					}
 				}
 			]
-		},
-		{
-			"name": "Search Hotels",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "3fcaeec1-10bf-4e54-b302-6fad9035fbe6",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"",
-							"pass = true;",
-							"fail = false;",
-							"",
-							"//console.log(data.hotelResultSet[0].max_rate);",
-							"//console.log(data.hotelResultSet[0].chain_name);",
-							"var data = JSON.parse(responseBody);",
-							"var dataHRS =  data.hotelResultSet[0];",
-							"var a = dataHRS.chain_name;",
-							"var b = dataHRS.distance;",
-							"var c = dataHRS.hotel_id;",
-							"var d = dataHRS.hotel_name;",
-							"var e = dataHRS.latitude;",
-							"var f = dataHRS.longitude;",
-							"var g = dataHRS.max_rate.amount;",
-							"var h = dataHRS.max_rate.currency;",
-							"var i = dataHRS.min_rate.amount;",
-							"var j = dataHRS.min_rate.currency;",
-							"var k = dataHRS.stars;",
-							"var l = dataHRS.thumbnail;",
-							"//console.log(dataHRS);",
-							"//console.log(l);",
-							"",
-							"tests[\"Hotel Chain Name (Test 1) = \" + a] = a === \"ACCOR HOTELS\";",
-							"",
-							"if (a ===  \"ACCOR HOTELS\") {",
-							"    tests[\"Hotel Chain Name = \" + a] = pass;",
-							"} ",
-							"else",
-							"tests[\"Hotel Chain Name = \" + a] = fail;",
-							"",
-							"if (b === 1.425) {",
-							"    tests[\"Distance = \" + b] = pass;",
-							"}",
-							"else",
-							"tests[\"Distance = \" + b] = fail;",
-							"",
-							"if (c === \"12_2\") {",
-							"    tests[\"Hotel_Id = \" + c] = pass;",
-							"}",
-							"else",
-							"tests[\"Hotel_Id = \" + c] = fail;",
-							"",
-							"if (d === \"MERCURE PARIS PLACE ITALIE 3*\") {",
-							"    tests[\"hotel_name = \" + d] = pass;",
-							"}",
-							"else",
-							"tests[\"hotel_name = \" + d] = false;",
-							"",
-							"if (e === 48.8303) {",
-							"    tests[\"latitude = \" + e] = pass;",
-							"}",
-							"else",
-							"tests[\"latitude = \" + e] = false;",
-							"",
-							"if (f === 2.35283) {",
-							"    tests[\"latitude = \" + f] = pass;",
-							"}",
-							"else",
-							"tests[\"latitude = \" + f] = false;",
-							"",
-							"if (g === 21951.12 && h === \"HUF\") {",
-							"    tests[\"Max_Rate = \" + g + \" \" + h] = pass;",
-							"}",
-							"else",
-							"    tests[\"Max_Rate = \" + g + \" \" + h] = fail;",
-							"",
-							"if (i === 18024.3 && j === \"HUF\") {",
-							"    tests[\"Min_Rate = \" + i + \" \" + j] = pass;",
-							"}",
-							"else",
-							"    tests[\"Min_Rate = \" + i + \" \" + j] = fail;",
-							"    ",
-							"if (k === 3) {",
-							"    tests[\"Stars = \" + k] = pass;",
-							"}",
-							"else",
-							"    tests[\"Stars = \" + k] = fail;",
-							"    ",
-							"if (l === \"https://static.allmyles.com/hotels/e4ba87c0/12_2.jpg\") {",
-							"    tests[\"Thumbnail = \" + l] = pass;",
-							"    }",
-							"else",
-							"    tests[\"Thumbnail =\"  + l] = fail;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "\t{\r\n      \"cityCode\": \"LON\",\r\n      \"rooms\": [{\"ADT\": 1, \"CHD\": 1}, {\"ADT\": 1}],\r\n      \"arrivalDate\": \"2014-09-29\",\r\n      \"leaveDate\": \"2014-09-30\",\r\n      \"nationality\": \"HU\"\r\n    }"
-				},
-				"url": {
-					"raw": "https://private-anon-8356d23813-allmyles.apiary-mock.com/hotels",
-					"protocol": "https",
-					"host": [
-						"private-anon-8356d23813-allmyles",
-						"apiary-mock",
-						"com"
-					],
-					"path": [
-						"hotels"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }

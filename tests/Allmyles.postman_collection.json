@@ -368,14 +368,99 @@
 						"id": "d0fd8869-a5b8-4e4c-8652-322a0fcb0863",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
 							""
 						]
 					}
 				}
 			]
+		},
+		{
+			"name": "Rental Cars",
+			"item": [
+				{
+					"name": "Search Cars",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "98c63415-5585-4d34-8d76-4b9b721aa084",
+								"type": "text/javascript",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var dataC = data.car_results;",
+									"var a = [dataC[0].available, dataC[1].available]",
+									"var b = (a.filter(true).length);",
+									"var c = (a.filter(false).length);",
+									"",
+									"if (dataC.length === 2) {",
+									"    tests[\"Number of Cars = \" + dataC.length] = pass;",
+									"}",
+									"else ",
+									"    tests[\"Number of Cars <> \" + dataC.length] = fail;",
+									"",
+									"if (b === 2 && b === a.length) {",
+									"    tests[\"Number of Cars Available = \" + a.length] = pass;",
+									"}",
+									"else",
+									"        tests[\"Number of Cars Available = \" + a.length] = fail;",
+									"",
+									"if (c === 0 && b === a.length) {",
+									"    tests[\"Number of Cars Not Available = \" + c] = pass;",
+									"}",
+									"else",
+									"        tests[\"Number of Cars Not Available = \" + c] = fail;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://private-anon-8356d23813-allmyles.apiary-mock.com/cars",
+							"protocol": "http",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "32931424-eff6-4a24-99aa-1360e7b82bc3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "af33456a-a3c2-43e8-846a-1651ad433372",
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
 		}
 	]
 }

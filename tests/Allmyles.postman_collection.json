@@ -240,6 +240,67 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Room Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c08f826-47ca-4467-9681-622c03dd16aa",
+								"type": "text/javascript",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var a = data.hotel_room_details.price.amount;",
+									"var b = Object.keys(data.hotel_room_details.rules.remarks)",
+									"//console.log(b);",
+									"",
+									"if (a === \"12887.08\") {",
+									"    tests[\"Price is correct = \" + a] = pass;",
+									"}",
+									"else if (a > \"12887.08\") {",
+									"    tests[\"Price is > \" + a] = fail;",
+									"}",
+									"else if (a < \"12887.08\") {",
+									"    tests[\"Price is < \" + a] = fail;",
+									"}",
+									"else",
+									"    tests[\"Price <> \" + a] = fail;",
+									"",
+									"if (b.length === 3) {",
+									"    tests[\"Number of Remarks = \" + b.length] = pass;",
+									"}    ",
+									"else ",
+									"    tests[\"Number of Remarks <> \" + b.length] = fail;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://private-anon-8356d23813-allmyles.apiary-mock.com/hotels/hotel_id/rooms/room_id",
+							"protocol": "http",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"hotels",
+								"hotel_id",
+								"rooms",
+								"room_id"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [

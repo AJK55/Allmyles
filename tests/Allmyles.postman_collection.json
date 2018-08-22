@@ -301,6 +301,54 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Hotel Booking Status ",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "27f731e3-13f9-4e7c-b447-b49c525af0f9",
+								"type": "text/javascript",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody);",
+									"var a = data.reservationState;",
+									"console.log(a)",
+									"",
+									"",
+									"if (a === \"CONFIRMED\") {",
+									"    tests[\"Status = \" + a] = pass;",
+									"}",
+									"else",
+									"    tests[\"Status <> \" + a] = fail;",
+									"    "
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://private-anon-8356d23813-allmyles.apiary-mock.com/hotels/pnr/status",
+							"protocol": "http",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"hotels",
+								"pnr",
+								"status"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [

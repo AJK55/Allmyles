@@ -437,6 +437,71 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Masterdata",
+			"item": [
+				{
+					"name": "Search Locations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5cedec86-0aef-44eb-848d-4100d20b0af3",
+								"type": "text/javascript",
+								"exec": [
+									"pass = true;",
+									"fail = false;",
+									"",
+									"var data = JSON.parse(responseBody)",
+									"var a = data.locationSearchResult",
+									"var b = Object.keys(a[0]).length",
+									"var c = a[0].category",
+									"//console.log(data)",
+									"//console.log(c)",
+									"",
+									"if (a.length === 1) {",
+									"    tests[\"Number of locations = \" + a.length] = pass;",
+									"}",
+									"else",
+									"    tests[\"Number of locations = \" + a.length] = fail;",
+									"",
+									"if (b === 7) {",
+									"    tests[\"Number of Keys Returned = \" + b] = pass;",
+									"}",
+									"else ",
+									"    tests[\"Number of Keys Returned = \" + b] = fail;",
+									"",
+									"if (c === \"airport\") {",
+									"    tests[\"Airport = \" + c] = pass;",
+									"}",
+									"else",
+									"        tests[\"Airport = \" + c] = fail;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://private-anon-8356d23813-allmyles.apiary-mock.com/masterdata/search",
+							"protocol": "http",
+							"host": [
+								"private-anon-8356d23813-allmyles",
+								"apiary-mock",
+								"com"
+							],
+							"path": [
+								"masterdata",
+								"search"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
